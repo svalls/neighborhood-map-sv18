@@ -1,1 +1,52 @@
+html, body {
+			height: 100%;
+			margin: 0px;
+		}
 
+		.container {
+			border: 2px solid red;
+			width:100%;
+			height: 100%;
+			/*height: 100%;*/
+			/*background-color: gray;*/
+			/*position: relative;*/
+			display: flex;
+		 	flex-wrap: wrap;
+		}
+
+		.list {
+	 		background-color: SlateGray;
+	        /*border: 1px solid #999;*/
+	 		width: 100%;
+	 		/*height: 100%;*/
+	 		/*height: 600px;*/
+	 		order: 1;
+	 	}
+
+	 	.location-headline {
+	 		color: white;
+	 		font-size: 24px;
+	 	}
+
+	 	.locaion-name {
+	 		color: white;
+	 		font-size: 18px;
+	 		border: 1px solid #cccccc;
+	 		padding: 10px;
+	 		/*background-color: lightgrey;*/
+	 	}
+
+	 	#map {
+	 		/*max-width: 100%;*/
+	 		/*background-color: yellow;*/
+	 		width: 100%;
+	 		/*height: 100%;*/
+	 		/*height: 600px;*/
+	 		order: 2;
+	 	}
+
+		/*at 690px the layout changes to 2 columns*/
+	 	@media screen and (min-width: 690px) {
+			.list { width: 40%; order: 1; }
+			#map { width: 60%; order: 2; }
+      	}     	

@@ -1,6 +1,13 @@
 html, body {
 			height: 100%;
 			margin: 0px;
+			font-family: Muli, Verdana, Geneva;
+		}
+
+		.header {
+			width: 100%
+			height: 80px;
+			background-color: black;
 		}
 
 		.container {
@@ -15,7 +22,7 @@ html, body {
 		}
 
 		.list {
-	 		background-color: SlateGray;
+	 		background-color: #5e5e5e;
 	        /*border: 1px solid #999;*/
 	 		width: 100%;
 	 		/*height: 100%;*/
@@ -23,17 +30,27 @@ html, body {
 	 		order: 1;
 	 	}
 
-	 	.location-headline {
-	 		color: white;
-	 		font-size: 24px;
+	 	.headline {
+	 		color: #ccc;
+	 		text-align: left;
+	 		padding-left: 20px
+/*	 		padding: 10px;
+*/	 		/*text-transform: uppercase;*/
 	 	}
 
-	 	.locaion-name {
+
+	 	.location-listing {
 	 		color: white;
-	 		font-size: 18px;
-	 		border: 1px solid #cccccc;
-	 		padding: 10px;
+	 		font-size: 14px;
+	 		/*border: 1px solid #999;*/
+	 		padding: 20px;
+	 		text-align: left;
+	 		/*line-height: 30px;*/
 	 		/*background-color: lightgrey;*/
+	 	}
+
+	 	.white {
+	 		color: white;
 	 	}
 
 	 	#map {
@@ -47,6 +64,6 @@ html, body {
 
 		/*at 690px the layout changes to 2 columns*/
 	 	@media screen and (min-width: 690px) {
-			.list { width: 40%; order: 1; }
-			#map { width: 60%; order: 2; }
+			.list { width: 30%; order: 1; }
+			#map { width: 70%; order: 2; }
       	}     	

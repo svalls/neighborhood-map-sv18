@@ -9,27 +9,44 @@
 </head>
 
 <body>
-	
 
-	<div class="container">
-		<div class="list">
-			<h2 class="headline">My Neighborhood Map</h2>
-<!-- 			<h2 class="headline">10 Places to Visit in Los Angeles</h2>
- -->
-			<div data-bind="foreach: location">
-			    <div class="location-listing" data-bind="text: locationName"></div>
-			</div>
+  <!-- HEADER -->
+  <header class="header">
+    <div>
+      <h2>HEADLINE</h2>        
+    </div>
+    <div>
+      <a id="burger-btn" onclick="openSidebar()">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M2 6h20v3H2zm0 5h20v3H2zm0 5h20v3H2z"/>
+        </svg>
+      </a>
+    </div>
 
-		</div> <!-- close list box -->
-		
+  </header>
 
-		<div id="map"></div>
 
-	</div> <!-- close container -->
+  <!-- SIDEBAR -->
+  <nav id="sidebar">
+    <h3>The 05 Best Things to Do in Santa Barbara</h3>
+
+    <ul>
+      <li>LOCATION 01</li>
+      <li>LOCATION 02</li>
+      <li>LOCATION 03</li>
+      <li>LOCATION 04</li>
+      <li>LOCATION 05</li>
+    </ul>     
+  </nav>
+
+
+  <!-- GOOGLE MAP -->
+  <main id="map" onclick="closeSidebar()">
+  </main>
 
 
 	<script type='text/javascript' src="js/knockout-3.4.2.js"></script>
 	<script src="js/app.js"></script>
-	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYucQKiwjID1i4hWndBGOInAUmWmOCr6Q&callback=initMap"></script>
+	<!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYucQKiwjID1i4hWndBGOInAUmWmOCr6Q&callback=initMap"></script> -->
 </body>
 </html>

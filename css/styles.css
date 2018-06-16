@@ -1,46 +1,36 @@
 
-
 /*GLOBAL SELECTOR*/
 * {
   margin: 0px;
   padding: 0px;
-/*font-family: some font;*/
+  font-family: Open Sans, Verdana, Geneva;
 }
 
 
 html, body {
   height: 100%;
   width: 100%;
-  margin: 0px;
-  padding: 0px;
 }
 
-}
+
 nav, main {
   padding: 1em;
   box-sizing: border-box;
 }
-main {
-  width: 100%;
-  height: 100%;
-}
-
 
 
 /*MOBILE SIZE*/
 
 .header {
-  background-color: gray;
+  z-index: 3;
+  background-color: #009999;
   width: 100%;
   height: 80px;
-  /*display: flex;*/
+  color: white;
+  display: flex;
+  padding-left: 10px;
 }
 
-
-/*BURGER ICON*/
-/*#burger-btn {
-  color: white;
-}*/
 
 a#burger-btn svg {
   width: 40px;
@@ -50,17 +40,19 @@ a#burger-btn svg {
 
 /*SIDEBAR HIDDEN ON MOBILE*/
 #sidebar {
-  width: 220px;
+  z-index: 2;
+  width: 280px;
   height: 100%;
   position: absolute;
-  background-color: #2A457A;
-  color: white;
+  background-color: white;
+  color: #5e5e5e;
   /*MOVES SIDEBAR OFF CANVAS*/ 
-  -webkit-transform: translate(-300px, 0);
-  transform: translate(-220px, 0);
+  -webkit-transform: translate(-280px, 0);
+  transform: translate(-280px, 0);
   /* Optionally, we animate the drawer. */
   transition: transform 0.3s ease;
 }
+
 
 /*SIDEBAR OPEN*/
 #sidebar.open {
@@ -71,7 +63,8 @@ a#burger-btn svg {
 
 /*LIST LOOK*/
 #sidebar ul li {
-  outline-style: none;
+  list-style-type:none;
+  /*outline-style: none;*/
   padding-left: 15px;
   padding-top: 10px;
   line-height: 30px;
@@ -80,14 +73,15 @@ a#burger-btn svg {
 
 
 #sidebar h3 {
-  color: lightgray;
+  color: #009999;
   padding-left: 15px;
+  padding-right: 15px;
   padding-top: 10px;
 }
 
 
 #map {
-  background-color: khaki;
+  z-index: 1;
   height: 100%;
 }
 
@@ -95,34 +89,24 @@ a#burger-btn svg {
  /*IF DEVICE IS BIGGER 600PX*/
 @media (min-width: 600px) {
 
-  /*KEEP SIDEBAR OPEN*/
+/*KEEP SIDEBAR OPEN*/
+#sidebar {
+  /*MOVES SIDEBAR OFF CANVAS*/ 
+  -webkit-transform: translate(0, 0);
+  transform: translate(0, 0);
+}
 
-  /*REMOVE BURGER ICON*/
+
+/*REMOVE BURGER ICON*/
 #burger-btn {
   display: none;
 }
 
-  /* We open the drawer. 
-/*  #sidebar {
-    position:relative;
-    -webkit-transform: translate(0, 0);
-    transform: translate(0, 0);
-  }*/
 
-  /* We use Flexbox on the parent. */
-/*  body {
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-flow: row nowrap;
-    flex-flow: row nowrap;
-  }*/
-
-/*  main {
-    width: auto;
-     Flex-grow streches the main content to fill all available space. 
-    flex-grow: 1;
-  }*/
-  } /*end media*/
+} /*end media*/
 
 
-    
+
+
+
+

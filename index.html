@@ -13,29 +13,27 @@
   <!-- HEADER -->
   <header class="header">
     <div>
-      <h2>HEADLINE</h2>        
-    </div>
-    <div>
       <a id="burger-btn" onclick="openSidebar()">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <path d="M2 6h20v3H2zm0 5h20v3H2zm0 5h20v3H2z"/>
         </svg>
       </a>
     </div>
-
+    <div>
+      <h2>Neighborhood Map</h2>        
+    </div>
   </header>
 
 
   <!-- SIDEBAR -->
   <nav id="sidebar">
-    <h3>The 05 Best Things to Do in Santa Barbara</h3>
+    <h3>05 Things to Do in Santa Barbara, California</h3>
 
-    <ul>
-      <li>LOCATION 01</li>
-      <li>LOCATION 02</li>
-      <li>LOCATION 03</li>
-      <li>LOCATION 04</li>
-      <li>LOCATION 05</li>
+    <h3>SEARCH FILTER HERE</h3>
+
+    <ul data-bind="foreach: location">
+      <li data-bind="text: locationName"></li>
+ 
     </ul>     
   </nav>
 
@@ -47,6 +45,6 @@
 
 	<script type='text/javascript' src="js/knockout-3.4.2.js"></script>
 	<script src="js/app.js"></script>
-	<!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYucQKiwjID1i4hWndBGOInAUmWmOCr6Q&callback=initMap"></script> -->
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYucQKiwjID1i4hWndBGOInAUmWmOCr6Q&callback=initMap"></script>
 </body>
 </html>

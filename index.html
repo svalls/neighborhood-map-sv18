@@ -12,28 +12,23 @@
 
   <!-- HEADER -->
   <header class="header">
-    <div>
-      <a id="burger-btn" onclick="openSidebar()">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-        <path d="M2 6h20v3H2zm0 5h20v3H2zm0 5h20v3H2z"/>
-        </svg>
-      </a>
-    </div>
-    <div>
-      <h2>Neighborhood Map</h2>        
-    </div>
+    <span>Neighborhood Map&nbsp</span>
+    <span id="burger-btn" onclick="openSidebar()">&#9776;</span>
   </header>
 
 
   <!-- SIDEBAR -->
   <nav id="sidebar">
     <h3>05 Things to Do in Santa Barbara, California</h3>
-
-    <h3>SEARCH FILTER HERE</h3>
-
+    <br>
+    <div>
+      <span class="search-text">Search for nearby places</span>
+      <input id="places-search" type="text" placeholder="Ex: Pizza delivery in NYC">
+      <input id="go-places" type="button" value="Go">
+    </div>
+    <br>
     <ul data-bind="foreach: location">
       <li data-bind="text: locationName"></li>
- 
     </ul>     
   </nav>
 

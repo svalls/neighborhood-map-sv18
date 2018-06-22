@@ -18,26 +18,26 @@ console.log("close sidebar");
 
 
 // KO OBSERVABLE ARRAY - tracks which objects are in the array
-function ViewModel() {
-    var self = this;
- 
-    self.location = ko.observableArray([
-        { locationName: 'Santa Barbara Zoo' },
-        { locationName: 'Stearns Wharf' },
-        { locationName: 'Paseo Nuevo' },
-        { locationName: 'Brophy Bros.' },
-        { locationName: 'Los Agaves' }
-    ]);
- 
-    // self.addPerson = function() {
-    //     self.people.push({ name: "New at " + new Date() });
-    // };
- 
-    // self.removePerson = function() {
-    //     self.people.remove(this);
-    // }
+function ViewModel(){
+
+  var self = this;
+  
+  self.filter = ko.observable();
+
+  self.locations = ko.observableArray([
+    { name: 'Santa Barbara Zoo' },
+    { name: 'Stearns Wharf' },
+    { name: 'Paseo Nuevo' },
+    { name: 'Brophy Bros.' },
+    { name: 'Los Agaves' }]);  
+    
+  self.visibleLocations = ko.computed(function(){
+       return self.locations().filter(function(location){
+           if(!self.filter() || location.name.toLowerCase().indexOf(self.filter().toLowerCase()) !== -1)
+             return location;
+       });
+   },self);
 }
- 
 ko.applyBindings(new ViewModel());
 
 
@@ -52,7 +52,7 @@ function initMap() {
     zoom: 13
   });
 
-  // These are the real estate listings that will be shown to the user.
+  // LOCATION LISTINGS ON THE MAP
   var locations = [
     {title: 'Santa Barbara Zoo', location: {lat: 34.4195492, lng: -119.6680014}},
     {title: 'Stearns Wharf', location: {lat: 34.4100065, lng: -119.6855487}},
@@ -66,13 +66,13 @@ function initMap() {
 
 
   // MARKER DEFAULT COLOR
-  var defaultIcon = makeMarkerIcon('009999');
+  var defaultIcon = makeMarkerIcon('cc66ff');
 
   // MARKER MOUSEOVER COLOR
-  var highlightedIcon = makeMarkerIcon('FFFF24');
+  var highlightedIcon = makeMarkerIcon('33cccc');
 
 
-  // The following group uses the location array to create an array of markers on initialize.
+// The following group uses the location array to create an array of markers on initialize.
   for (var i = 0; i < locations.length; i++) {
     // Get the position from the location array.
     var position = locations[i].location;
@@ -86,30 +86,21 @@ function initMap() {
       icon: defaultIcon,
       id: i
     });
-    
     // Push the marker to our array of markers.
     markers.push(marker);
-    
-    // Create an onclick event to open an infowindow at each marker.
+    // Create an onclick event to open the large infowindow at each marker.
     marker.addListener('click', function() {
-    populateInfoWindow(this, largeInfowindow);
+      populateInfoWindow(this, largeInfowindow);
     });
-    bounds.extend(markers[i].position);
-  }
-    
-    // Extend the boundaries of the map for each marker
-    map.fitBounds(bounds);
-
     // MARKER EVENT LISTENER MOUSEOVER
     marker.addListener('mouseover', function() {
       this.setIcon(highlightedIcon);
     });
-    
     // MARKER EVENT LISTENER MOUSEOUT
     marker.addListener('mouseout', function() {
       this.setIcon(defaultIcon);
     });
-
+  } //end for loop
 } //end initmap function
 
 
@@ -144,6 +135,4 @@ function makeMarkerIcon(markerColor) {
     new google.maps.Size(21,34));
   return markerImage;
 } //end makeMarkerIcon function
-
-
 

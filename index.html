@@ -19,17 +19,16 @@
 
   <!-- SIDEBAR -->
   <nav id="sidebar">
-    <h3>05 Things to Do in Santa Barbara, California</h3>
-    <br>
-    <div>
-      <span class="search-text">Search for nearby places</span>
-      <input id="places-search" type="text" placeholder="Ex: Pizza delivery in NYC">
-      <input id="go-places" type="button" value="Go">
-    </div>
-    <br>
-    <ul data-bind="foreach: location">
-      <li data-bind="text: locationName"></li>
-    </ul>     
+    <h3>05 Places to Visit in Santa Barbara, California</h3>
+    <span class="filterHeadline">Find a Location</span>
+    <!-- <label for="filter">Filter:</label> -->
+    <!-- FILTER -->
+	<input id="filter" type="text" data-bind="textInput: filter" placeholder="Ex: Zoo, Restaurant">
+	<!-- LIST -->
+	<ul data-bind="foreach: visibleLocations">
+		<!-- <li><a href="#" data-bind="text: name, click: getContent"></a></li> -->
+		<li><a href="#" data-bind="text: name"></a></li>
+	</ul>     
   </nav>
 
 

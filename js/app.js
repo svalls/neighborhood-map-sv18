@@ -32,12 +32,19 @@ function ViewModel(){
     { name: 'Los Agaves' }]);  
     
   self.visibleLocations = ko.computed(function(){
-       return self.locations().filter(function(location){
-           if(!self.filter() || location.name.toLowerCase().indexOf(self.filter().toLowerCase()) !== -1)
-             return location;
-       });
-   },self);
-}
+    return self.locations().filter(function(location){
+      if(!self.filter() || location.name.toLowerCase().indexOf(self.filter().toLowerCase()) !== -1)
+        return location;
+      });
+    },self);
+  }
+
+  self.myFunction = function() {
+    console.log('I need to get the InfoWindow...');
+    // populateInfoWindow();
+    // self.places.remove(place)
+  }
+
 ko.applyBindings(new ViewModel());
 
 
@@ -135,4 +142,3 @@ function makeMarkerIcon(markerColor) {
     new google.maps.Size(21,34));
   return markerImage;
 } //end makeMarkerIcon function
-

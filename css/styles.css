@@ -97,23 +97,26 @@ nav, main {
 
 #sidebar li:hover {
   background-color: #f0f0f0;
-  
+  color: #009999;
 }
 
 
-#sidebar a {
+#sidebar li:focus {
+  background-color: yellow;
+ color: yellow;
+}
+
+
+/*#sidebar a {
   color: #5e5e5e;
   text-decoration: none;
   line-height: 40px;
-  /*list-style: none;*/
-  /*display: block;*/
-  /*padding: 11px;*/
-}
+}*/
 
 
-#sidebar a:focus {
+/*#sidebar a:focus {
  color:#cc66ff;
-}
+}*/
 
 
 #map {
@@ -144,3 +147,5 @@ nav, main {
 
 
 } /*end media*/
+
+

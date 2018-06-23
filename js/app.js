@@ -40,7 +40,7 @@ function ViewModel(){
   }
 
   self.myFunction = function() {
-    console.log('I need to get the InfoWindow...');
+    console.log('Hi Ravi, I am still working on the InfoWindow');
     // populateInfoWindow();
     // self.places.remove(place)
   }
@@ -142,3 +142,7 @@ function makeMarkerIcon(markerColor) {
     new google.maps.Size(21,34));
   return markerImage;
 } //end makeMarkerIcon function
+
+
+
+

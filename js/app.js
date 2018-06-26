@@ -17,38 +17,6 @@ console.log("close sidebar");
 
 
 
-// KO OBSERVABLE ARRAY - tracks which objects are in the array
-function ViewModel(){
-
-  var self = this;
-  
-  self.filter = ko.observable();
-
-  self.locations = ko.observableArray([
-    { name: 'Santa Barbara Zoo' },
-    { name: 'Stearns Wharf' },
-    { name: 'Paseo Nuevo' },
-    { name: 'Brophy Bros.' },
-    { name: 'Los Agaves' }]);  
-    
-  self.visibleLocations = ko.computed(function(){
-    return self.locations().filter(function(location){
-      if(!self.filter() || location.name.toLowerCase().indexOf(self.filter().toLowerCase()) !== -1)
-        return location;
-      });
-    },self);
-  }
-
-  self.myFunction = function() {
-    console.log('Hi Ravi, I am still working on the InfoWindow');
-    // populateInfoWindow();
-    // self.places.remove(place)
-  }
-
-ko.applyBindings(new ViewModel());
-
-
-
 //GET GOOGLE MAP
 function initMap() {
   // Constructor creates a new map - only center and zoom are required
@@ -142,6 +110,61 @@ function makeMarkerIcon(markerColor) {
     new google.maps.Size(21,34));
   return markerImage;
 } //end makeMarkerIcon function
+
+
+
+
+
+
+// KO OBSERVABLE ARRAY - tracks which objects are in the array
+function ViewModel(){
+
+  var self = this;
+  
+  self.filter = ko.observable();
+
+  self.locations = ko.observableArray([
+    { name: 'Santa Barbara Zoo' },
+    { name: 'Stearns Wharf' },
+    { name: 'Paseo Nuevo' },
+    { name: 'Brophy Bros.' },
+    { name: 'Los Agaves' }]);  
+    
+  self.visibleLocations = ko.computed(function(){
+    return self.locations().filter(function(location){
+      if(!self.filter() || location.name.toLowerCase().indexOf(self.filter().toLowerCase()) !== -1)
+        return location;
+      });
+    },self);
+  }
+
+  // You can call the populateInfoWindow function from any where.
+  // You will just need to make sure that you pass in the right arguments
+  // that it needs and that the functions or methods that the populateInfoWindow
+  // function calls are available/defined.
+
+  // //TEST 01
+  // self.myFunction = function(infowindow) {
+  //   console.log('Hi Ravi, I am still working on the InfoWindow');
+  //   google.maps.event.trigger(infowindow.marker, 'click');
+  // }
+
+  //TEST 02
+  // // https://developers.google.com/maps/documentation/javascript/events
+  self.myFunction = function(locations) {
+    console.log('Hi Ravi, I am still working on the InfoWindow');
+    google.maps.event.trigger(locations.marker, "click");
+  };
+
+ko.applyBindings(new ViewModel());
+
+
+
+
+
+
+
+
 
 
 

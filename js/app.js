@@ -2,6 +2,14 @@ var map;
 // Create a new blank array for all the listing markers
 var markers = [];
 
+var locations = [
+  {title: 'Santa Barbara Zoo', location: {lat: 34.4195492, lng: -119.6680014}},
+  {title: 'Stearns Wharf', location: {lat: 34.4100065, lng: -119.6855487}},
+  {title: 'Paseo Nuevo', location: {lat: 34.4206196, lng: -119.6957234}},
+  {title: 'Brophy Bros.', location: {lat: 34.4038483, lng: -119.6939244}},
+  {title: 'Los Agaves', location: {lat: 34.4274939, lng: -119.6866179}}
+];
+
 
 
 //OPEN SIDE MENU
@@ -28,13 +36,13 @@ function initMap() {
   });
 
   // LOCATION LISTINGS ON THE MAP
-  var locations = [
-    {title: 'Santa Barbara Zoo', location: {lat: 34.4195492, lng: -119.6680014}},
-    {title: 'Stearns Wharf', location: {lat: 34.4100065, lng: -119.6855487}},
-    {title: 'Paseo Nuevo', location: {lat: 34.4206196, lng: -119.6957234}},
-    {title: 'Brophy Bros.', location: {lat: 34.4038483, lng: -119.6939244}},
-    {title: 'Los Agaves', location: {lat: 34.4274939, lng: -119.6866179}}
-  ];
+  // var locations = [
+  //   {title: 'Santa Barbara Zoo', location: {lat: 34.4195492, lng: -119.6680014}},
+  //   {title: 'Stearns Wharf', location: {lat: 34.4100065, lng: -119.6855487}},
+  //   {title: 'Paseo Nuevo', location: {lat: 34.4206196, lng: -119.6957234}},
+  //   {title: 'Brophy Bros.', location: {lat: 34.4038483, lng: -119.6939244}},
+  //   {title: 'Los Agaves', location: {lat: 34.4274939, lng: -119.6866179}}
+  // ];
 
   var largeInfowindow = new google.maps.InfoWindow();
   var bounds = new google.maps.LatLngBounds();
@@ -143,29 +151,17 @@ function ViewModel(){
   // that it needs and that the functions or methods that the populateInfoWindow
   // function calls are available/defined.
 
-  // //TEST 01
-  // self.myFunction = function(infowindow) {
-  //   console.log('Hi Ravi, I am still working on the InfoWindow');
-  //   google.maps.event.trigger(infowindow.marker, 'click');
-  // }
-
-  //TEST 02
-  // // https://developers.google.com/maps/documentation/javascript/events
-  self.myFunction = function(locations) {
-    console.log('Hi Ravi, I am still working on the InfoWindow');
-    google.maps.event.trigger(locations.marker, "click");
+  self.showInfowindow = function(marker, infowindow) {
+    console.log('locations:' + locations);
+    console.log('infowindow:' + infowindow);
+    console.log('markers:' + markers);
+    // TEST 01
+    google.maps.event.trigger(marker, "click");
+    // TEST 02
+    google.maps.event.trigger(infowindow, "click");
+    // TEST 03
+    google.maps.event.trigger(infowindow.marker, "click");
   };
 
 ko.applyBindings(new ViewModel());
-
-
-
-
-
-
-
-
-
-
-
 

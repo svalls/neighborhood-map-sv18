@@ -2,14 +2,6 @@ var map;
 // Create a new blank array for all the listing markers
 var markers = [];
 
-var locations = [
-  {title: 'Santa Barbara Zoo', location: {lat: 34.4195492, lng: -119.6680014}},
-  {title: 'Stearns Wharf', location: {lat: 34.4100065, lng: -119.6855487}},
-  {title: 'Paseo Nuevo', location: {lat: 34.4206196, lng: -119.6957234}},
-  {title: 'Brophy Bros.', location: {lat: 34.4038483, lng: -119.6939244}},
-  {title: 'Los Agaves', location: {lat: 34.4274939, lng: -119.6866179}}
-];
-
 
 
 //OPEN SIDE MENU
@@ -21,6 +13,10 @@ console.log("open sidebar");
 function closeSidebar() {
 document.getElementById("sidebar").classList.remove("open");
 console.log("close sidebar");
+}
+
+function mapError() {
+  alert("Map could not be loaded at this moment. Please try again");
 }
 
 
@@ -36,13 +32,13 @@ function initMap() {
   });
 
   // LOCATION LISTINGS ON THE MAP
-  // var locations = [
-  //   {title: 'Santa Barbara Zoo', location: {lat: 34.4195492, lng: -119.6680014}},
-  //   {title: 'Stearns Wharf', location: {lat: 34.4100065, lng: -119.6855487}},
-  //   {title: 'Paseo Nuevo', location: {lat: 34.4206196, lng: -119.6957234}},
-  //   {title: 'Brophy Bros.', location: {lat: 34.4038483, lng: -119.6939244}},
-  //   {title: 'Los Agaves', location: {lat: 34.4274939, lng: -119.6866179}}
-  // ];
+  var locations = [
+    {title: 'Santa Barbara Zoo', location: {lat: 34.4195492, lng: -119.6680014}},
+    {title: 'Stearns Wharf', location: {lat: 34.4100065, lng: -119.6855487}},
+    {title: 'Paseo Nuevo', location: {lat: 34.4206196, lng: -119.6957234}},
+    {title: 'Brophy Bros.', location: {lat: 34.4038483, lng: -119.6939244}},
+    {title: 'Los Agaves', location: {lat: 34.4274939, lng: -119.6866179}}
+  ];
 
   var largeInfowindow = new google.maps.InfoWindow();
   var bounds = new google.maps.LatLngBounds();
@@ -108,7 +104,7 @@ function populateInfoWindow(marker, infowindow) {
 // icon of that color. The icon will be 21 px wide by 34 high, have an origin
 // of 0, 0 and be anchored at 10, 34).
 function makeMarkerIcon(markerColor) {
-  console.log('makeMarkerIcon function');
+  // console.log('makeMarkerIcon function');
   var markerImage = new google.maps.MarkerImage(
     'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|'+ markerColor +
     '|40|_|%E2%80%A2',
@@ -118,9 +114,6 @@ function makeMarkerIcon(markerColor) {
     new google.maps.Size(21,34));
   return markerImage;
 } //end makeMarkerIcon function
-
-
-
 
 
 
@@ -146,22 +139,11 @@ function ViewModel(){
     },self);
   }
 
-  // You can call the populateInfoWindow function from any where.
-  // You will just need to make sure that you pass in the right arguments
-  // that it needs and that the functions or methods that the populateInfoWindow
-  // function calls are available/defined.
 
-  self.showInfowindow = function(marker, infowindow) {
-    console.log('locations:' + locations);
-    console.log('infowindow:' + infowindow);
-    console.log('markers:' + markers);
-    // TEST 01
+  this.showInfowindow = function (index, infowindow, marker, location) {
+    console.log(index, infowindow, marker);
     google.maps.event.trigger(marker, "click");
-    // TEST 02
-    google.maps.event.trigger(infowindow, "click");
-    // TEST 03
-    google.maps.event.trigger(infowindow.marker, "click");
   };
 
-ko.applyBindings(new ViewModel());
+ko.applyBindings(new ViewModel()); //end viewmodel
 

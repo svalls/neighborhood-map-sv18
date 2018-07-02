@@ -140,10 +140,11 @@ function ViewModel(){
   }
 
 
-  this.showInfowindow = function (index, infowindow, marker) {
+  self.showInfowindow = function (index, infowindow, marker, location) {
     console.log(index, infowindow, marker);
     google.maps.event.trigger(marker, "click");
   };
 
 ko.applyBindings(new ViewModel()); //end viewmodel
+
 

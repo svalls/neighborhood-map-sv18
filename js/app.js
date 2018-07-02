@@ -140,7 +140,7 @@ function ViewModel(){
   }
 
 
-  this.showInfowindow = function (index, infowindow, marker, location) {
+  this.showInfowindow = function (index, infowindow, marker) {
     console.log(index, infowindow, marker);
     google.maps.event.trigger(marker, "click");
   };

@@ -25,7 +25,8 @@
 	<!-- LIST -->
 	<!-- https://stackoverflow.com/questions/13237058/get-index-of-the-clicked-element-in-knockout -->     
 	<ul data-bind="foreach: visibleLocations">
-		<li><p data-bind="text: name, click: showInfowindow.bind($data, $index())"></p></li>
+    <li data-bind="text: name, click: showInfowindow.bind($data, $index())"></li>
+		<!-- <li><p data-bind="text: name, click: showInfowindow.bind($data, $index())"></p></li> -->
 	</ul>
   </nav>
 

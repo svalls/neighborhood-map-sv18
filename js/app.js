@@ -139,12 +139,11 @@ function ViewModel(){
     },self);
   }
 
-
-  self.showInfowindow = function (index, infowindow, marker, location) {
-    console.log(index, infowindow, marker);
-    google.maps.event.trigger(marker, "click");
+  // https://stackoverflow.com/questions/2730929/how-to-trigger-the-onclick-event-of-a-marker-on-a-google-maps-v3/2731781#2731781
+  self.showInfowindow = function (index, infowindow, marker) {
+    // console.log(index, infowindow, marker);
+    google.maps.event.trigger(markers[index], 'click');
   };
 
+
 ko.applyBindings(new ViewModel()); //end viewmodel
-
-

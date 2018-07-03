@@ -20,13 +20,12 @@
   <nav id="sidebar">
     <h3>05 Places to Visit in Santa Barbara, California</h3>
     <span class="filterHeadline">Find a Location</span>
-    <!-- FILTER -->
+  <!-- FILTER -->
 	<input id="filter" type="text" data-bind="textInput: filter" placeholder="Ex: Zoo, Restaurant">
 	<!-- LIST -->
-	<!-- https://stackoverflow.com/questions/13237058/get-index-of-the-clicked-element-in-knockout -->     
+	<!-- https://stackoverflow.com/questions/13237058/get-index-of-the-clicked-element-in-knockout -->  
 	<ul data-bind="foreach: visibleLocations">
     <li data-bind="text: name, click: showInfowindow.bind($data, $index())"></li>
-		<!-- <li><p data-bind="text: name, click: showInfowindow.bind($data, $index())"></p></li> -->
 	</ul>
   </nav>
 

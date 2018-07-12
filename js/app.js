@@ -3,7 +3,6 @@ var map;
 var markers = [];
 
 
-
 //OPEN SIDE MENU
 function openSidebar() {
 document.getElementById("sidebar").classList.toggle("open");
@@ -21,7 +20,8 @@ function mapError() {
 
 
 
-//GET GOOGLE MAP
+// ********** GOOGLE MAP **********
+
 function initMap() {
   // Constructor creates a new map - only center and zoom are required
   map = new google.maps.Map(document.getElementById('map'), {
@@ -31,6 +31,7 @@ function initMap() {
     zoom: 13
   });
 
+
   // LOCATION LISTINGS ON THE MAP
   var locations = [
     {title: 'Santa Barbara Zoo', location: {lat: 34.4195492, lng: -119.6680014}},
@@ -39,6 +40,16 @@ function initMap() {
     {title: 'Brophy Bros.', location: {lat: 34.4038483, lng: -119.6939244}},
     {title: 'Los Agaves', location: {lat: 34.4274939, lng: -119.6866179}}
   ];
+
+
+// LOCATION COSTRUCTOR
+var Location = function(data) {
+    var self = this;
+    self.title = data.title;
+    self.location = data.location;
+    self.showLocation = ko.observable();
+};
+
 
   var largeInfowindow = new google.maps.InfoWindow();
   var bounds = new google.maps.LatLngBounds();
@@ -51,7 +62,7 @@ function initMap() {
   var highlightedIcon = makeMarkerIcon('33cccc');
 
 
-// The following group uses the location array to create an array of markers on initialize.
+// USE LOCATION ARRAY TO CREATE ARRAY MARKERS ON INITIALIZE
   for (var i = 0; i < locations.length; i++) {
     // Get the position from the location array.
     var position = locations[i].location;
@@ -83,7 +94,6 @@ function initMap() {
 } //end initmap function
 
 
-
 // DISPLAYS INFOWINDOW WHEN MARKER IS CLICKED
 function populateInfoWindow(marker, infowindow) {
   // Check to make sure the infowindow is not already opened on this marker.
@@ -95,7 +105,49 @@ function populateInfoWindow(marker, infowindow) {
     infowindow.addListener('closeclick',function(){
       infowindow.setMarker = null;
     });
-  }
+  } //end if statement
+
+
+// ********** FOURSQUARE AJAX REQUEST **********
+
+// Foursquare Client ID
+var foursquareId = '2BLMYYLLXG2GREZT2C0CJ3RBEIXLT0WUHJ3ESGWWHPJYW1DA';
+// Foursquare Client Secret
+var foursquareSecret = 'QRJ3YCDAS5UVLTDMXADKNMBNJE5NQUFW2YK5XYMWRCE03PAA';
+// Foursquare URL
+var foursquareUrl = 'https://api.foursquare.com/v2/venues/explore';
+
+//https://discussions.udacity.com/t/using-fail-and-done-for-ajax-request/213989/2
+//https://discussions.udacity.com/t/wikipedia-api-usage/209707/3
+
+//Ajax request
+$.ajax({
+  // parameters,
+  url: foursquareUrl + latlng.lat + ',' + latlng.lng;
+  dataType: 'json',
+  data: {
+    client_id: foursquareId,
+    client_secret: foursquareSecret,
+    // from array
+    query: marker.title,
+    v: 20170523,
+    limit: 1
+    //ravi
+    // client_id: 'CLIENT_ID',
+    // client_secret: 'CLIENT_SECRET',
+    // ll: '40.7243,-74.0018',
+    // query: 'coffee',
+    // v: '20180323',
+    // limit: 1
+    },
+}).done(function(response) {
+  // do something with response
+  console.log('success');
+}).fail(function() {
+  // alert user of API error
+  console.log('error');
+}); // end ajax request
+
 } //end populateInfoWindow
 
 
@@ -116,6 +168,8 @@ function makeMarkerIcon(markerColor) {
 } //end makeMarkerIcon function
 
 
+
+// ********** VIEWMODEL **********
 
 // KO OBSERVABLE ARRAY - tracks which objects are in the array
 function ViewModel(){
@@ -147,3 +201,5 @@ function ViewModel(){
 
 
 ko.applyBindings(new ViewModel()); //end viewmodel
+
+

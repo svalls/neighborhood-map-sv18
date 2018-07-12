@@ -42,13 +42,13 @@ function initMap() {
   ];
 
 
-// LOCATION COSTRUCTOR
-var Location = function(data) {
-    var self = this;
-    self.title = data.title;
-    self.location = data.location;
-    self.showLocation = ko.observable();
-};
+// // LOCATION COSTRUCTOR
+// var Location = function(data) {
+//     var self = this;
+//     self.title = data.title;
+//     self.location = data.location;
+//     self.showLocation = ko.observable();
+// };
 
 
   var largeInfowindow = new google.maps.InfoWindow();
@@ -110,38 +110,34 @@ function populateInfoWindow(marker, infowindow) {
 
 // ********** FOURSQUARE AJAX REQUEST **********
 
-// Foursquare Client ID
-var foursquareId = '2BLMYYLLXG2GREZT2C0CJ3RBEIXLT0WUHJ3ESGWWHPJYW1DA';
-// Foursquare Client Secret
-var foursquareSecret = 'QRJ3YCDAS5UVLTDMXADKNMBNJE5NQUFW2YK5XYMWRCE03PAA';
-// Foursquare URL
-var foursquareUrl = 'https://api.foursquare.com/v2/venues/explore';
-
-//https://discussions.udacity.com/t/using-fail-and-done-for-ajax-request/213989/2
-//https://discussions.udacity.com/t/wikipedia-api-usage/209707/3
+// https://discussions.udacity.com/t/jsonp-on-foursquare-not-working/187829/2
+//Define the parameters above the ajax request (modularity, readability)
+var foursquareId = '2BLMYYLLXG2GREZT2C0CJ3RBEIXLT0WUHJ3ESGWWHPJYW1DA',
+    foursquareSecret = 'QRJ3YCDAS5UVLTDMXADKNMBNJE5NQUFW2YK5XYMWRCE03PAA',
+    version = 20160908,
+    foursquareUrl = 'https://api.foursquare.com/v2/venues/explore';
+    // base_url = "https://api.foursquare.com/v2/venues";
+    //https://discussions.udacity.com/t/ajax-foursquare-request-function/203175
+    // var FSquareURL = 'https://api.foursquare.com/v2/venues/search?ll=' + this.location.lat + ',' + this.location.lng + '&client_id=' + clientID + '&client_secret=' + clientSecret + '&v=20160118' + '&query=' + this.name;
+    // foursquareUrl = 'https://api.foursquare.com/v2/venues/search?ll=' + this.location.lat + ',' + this.location.lng + '&client_id=' + foursquareId + '&client_secret=' + foursquareSecret + '&v=20160118' + '&query=' + this.title;
 
 //Ajax request
+// https://discussions.udacity.com/t/wikipedia-api-usage/209707/3
 $.ajax({
-  // parameters,
-  url: foursquareUrl + latlng.lat + ',' + latlng.lng;
+  url: foursquareUrl;
   dataType: 'json',
   data: {
     client_id: foursquareId,
     client_secret: foursquareSecret,
     // from array
-    query: marker.title,
-    v: 20170523,
-    limit: 1
-    //ravi
-    // client_id: 'CLIENT_ID',
-    // client_secret: 'CLIENT_SECRET',
-    // ll: '40.7243,-74.0018',
-    // query: 'coffee',
-    // v: '20180323',
+    // query: marker.title,
+    v: version
     // limit: 1
     },
-}).done(function(response) {
+}).done(function(data) {
   // do something with response
+  // var answer = data.response.venues[0];
+  // self.address = answer.location.formattedAddress[0];
   console.log('success');
 }).fail(function() {
   // alert user of API error
@@ -201,5 +197,4 @@ function ViewModel(){
 
 
 ko.applyBindings(new ViewModel()); //end viewmodel
-
 

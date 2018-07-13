@@ -34,26 +34,24 @@ function initMap() {
 
   // LOCATION LISTINGS ON THE MAP
   var locations = [
-    {title: 'Santa Barbara Zoo', location: {lat: 34.4195492, lng: -119.6680014}},
+    {title: 'Santa Barbara Zoo', location: {lat: 34.420408, lng: -119.666354}},
     {title: 'Stearns Wharf', location: {lat: 34.4100065, lng: -119.6855487}},
-    {title: 'Paseo Nuevo', location: {lat: 34.4206196, lng: -119.6957234}},
-    {title: 'Brophy Bros.', location: {lat: 34.4038483, lng: -119.6939244}},
-    {title: 'Los Agaves', location: {lat: 34.4274939, lng: -119.6866179}}
+    {title: 'Paseo Nuevo Shops', location: {lat: 34.4206196, lng: -119.6957234}},
+    {title: 'Brophy Bros. Seafood Restaurant', location: {lat: 34.4039826, lng: -119.6933294}},
+    {title: 'Los Agaves Mexican Restaurant', location: {lat: 34.4374508, lng: -119.7273891}}
   ];
 
-
-// // LOCATION COSTRUCTOR
-// var Location = function(data) {
-//     var self = this;
-//     self.title = data.title;
-//     self.location = data.location;
-//     self.showLocation = ko.observable();
-// };
+  // LOCATION CONSTRUCTOR
+  var Location = function(data) {
+      var self = this;
+      self.title = data.title;
+      self.location = data.location;
+      self.showLocation = ko.observable();
+  };
 
 
   var largeInfowindow = new google.maps.InfoWindow();
   var bounds = new google.maps.LatLngBounds();
-
 
   // MARKER DEFAULT COLOR
   var defaultIcon = makeMarkerIcon('cc66ff');
@@ -94,6 +92,7 @@ function initMap() {
 } //end initmap function
 
 
+
 // DISPLAYS INFOWINDOW WHEN MARKER IS CLICKED
 function populateInfoWindow(marker, infowindow) {
   // Check to make sure the infowindow is not already opened on this marker.
@@ -107,42 +106,29 @@ function populateInfoWindow(marker, infowindow) {
     });
   } //end if statement
 
+  // ********** FOURSQUARE AJAX REQUEST **********
 
-// ********** FOURSQUARE AJAX REQUEST **********
+  // https://discussions.udacity.com/t/jsonp-on-foursquare-not-working/187829/2
+  //Define the parameters above the ajax request (modularity, readability)
+  var foursquareId = '2BLMYYLLXG2GREZT2C0CJ3RBEIXLT0WUHJ3ESGWWHPJYW1DA',
+      foursquareSecret = 'QRJ3YCDAS5UVLTDMXADKNMBNJE5NQUFW2YK5XYMWRCE03PAA',
+      version = 20160908,
+      foursquareUrl = 'https://api.foursquare.com/v2/venues/search?ll=' + location.lat + ',' + location.lng + '&client_id=' + foursquareId + '&client_secret=' + foursquareSecret + '&v=' + version + '&m=foursquare';
+      //this.location.lat ??
+      //this.title??
 
-// https://discussions.udacity.com/t/jsonp-on-foursquare-not-working/187829/2
-//Define the parameters above the ajax request (modularity, readability)
-var foursquareId = '2BLMYYLLXG2GREZT2C0CJ3RBEIXLT0WUHJ3ESGWWHPJYW1DA',
-    foursquareSecret = 'QRJ3YCDAS5UVLTDMXADKNMBNJE5NQUFW2YK5XYMWRCE03PAA',
-    version = 20160908,
-    foursquareUrl = 'https://api.foursquare.com/v2/venues/explore';
-    // base_url = "https://api.foursquare.com/v2/venues";
-    //https://discussions.udacity.com/t/ajax-foursquare-request-function/203175
-    // var FSquareURL = 'https://api.foursquare.com/v2/venues/search?ll=' + this.location.lat + ',' + this.location.lng + '&client_id=' + clientID + '&client_secret=' + clientSecret + '&v=20160118' + '&query=' + this.name;
-    // foursquareUrl = 'https://api.foursquare.com/v2/venues/search?ll=' + this.location.lat + ',' + this.location.lng + '&client_id=' + foursquareId + '&client_secret=' + foursquareSecret + '&v=20160118' + '&query=' + this.title;
-
-//Ajax request
-// https://discussions.udacity.com/t/wikipedia-api-usage/209707/3
-$.ajax({
-  url: foursquareUrl;
-  dataType: 'json',
-  data: {
-    client_id: foursquareId,
-    client_secret: foursquareSecret,
-    // from array
-    // query: marker.title,
-    v: version
-    // limit: 1
-    },
-}).done(function(data) {
-  // do something with response
-  // var answer = data.response.venues[0];
-  // self.address = answer.location.formattedAddress[0];
-  console.log('success');
-}).fail(function() {
-  // alert user of API error
-  console.log('error');
-}); // end ajax request
+  // https://discussions.udacity.com/t/wikipedia-api-usage/209707/3
+  // https://discussions.udacity.com/t/ajax-foursquare-request-function/203175
+  $.ajax({
+    url: foursquareUrl,
+    dataType: 'json',
+  }).done(function(data) {
+    // do something with response
+    console.log(data);
+  }).fail(function() {
+    // alert user of API error
+    console.log('error');
+  }); // end ajax request
 
 } //end populateInfoWindow
 
@@ -177,9 +163,9 @@ function ViewModel(){
   self.locations = ko.observableArray([
     { name: 'Santa Barbara Zoo' },
     { name: 'Stearns Wharf' },
-    { name: 'Paseo Nuevo' },
-    { name: 'Brophy Bros.' },
-    { name: 'Los Agaves' }]);  
+    { name: 'Paseo Nuevo Shops' },
+    { name: 'Brophy Bros. Seafood Restaurant' },
+    { name: 'Los Agaves Mexican Restaurant' }]);  
     
   self.visibleLocations = ko.computed(function(){
     return self.locations().filter(function(location){
@@ -197,4 +183,5 @@ function ViewModel(){
 
 
 ko.applyBindings(new ViewModel()); //end viewmodel
+
 

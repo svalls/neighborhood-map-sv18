@@ -106,29 +106,30 @@ function populateInfoWindow(marker, infowindow) {
     });
   } //end if statement
 
-  // ********** FOURSQUARE AJAX REQUEST **********
+    // ********** FOURSQUARE AJAX REQUEST **********
 
-  // https://discussions.udacity.com/t/jsonp-on-foursquare-not-working/187829/2
-  //Define the parameters above the ajax request (modularity, readability)
-  var foursquareId = '2BLMYYLLXG2GREZT2C0CJ3RBEIXLT0WUHJ3ESGWWHPJYW1DA',
-      foursquareSecret = 'QRJ3YCDAS5UVLTDMXADKNMBNJE5NQUFW2YK5XYMWRCE03PAA',
-      version = 20160908,
-      foursquareUrl = 'https://api.foursquare.com/v2/venues/search?ll=' + location.lat + ',' + location.lng + '&client_id=' + foursquareId + '&client_secret=' + foursquareSecret + '&v=' + version + '&m=foursquare';
-      //this.location.lat ??
-      //this.title??
+    // https://discussions.udacity.com/t/jsonp-on-foursquare-not-working/187829/2
+    //Define the parameters above the ajax request (modularity, readability)
+    var foursquareId = '2BLMYYLLXG2GREZT2C0CJ3RBEIXLT0WUHJ3ESGWWHPJYW1DA',
+        foursquareSecret = 'QRJ3YCDAS5UVLTDMXADKNMBNJE5NQUFW2YK5XYMWRCE03PAA',
+        version = 20160908,
+        foursquareUrl = 'https://api.foursquare.com/v2/venues/search?ll=' + location.lat + ',' + location.lng + '&client_id=' + foursquareId + '&client_secret=' + foursquareSecret + '&v=' + version + '&m=foursquare';
 
-  // https://discussions.udacity.com/t/wikipedia-api-usage/209707/3
-  // https://discussions.udacity.com/t/ajax-foursquare-request-function/203175
-  $.ajax({
-    url: foursquareUrl,
-    dataType: 'json',
-  }).done(function(data) {
-    // do something with response
-    console.log(data);
-  }).fail(function() {
-    // alert user of API error
-    console.log('error');
-  }); // end ajax request
+    // https://discussions.udacity.com/t/wikipedia-api-usage/209707/3
+    // https://discussions.udacity.com/t/ajax-foursquare-request-function/203175
+    $.ajax({
+      url: foursquareUrl,
+      dataType: 'json',
+    }).done(function(data) {
+      // do something with response
+      console.log(data);
+
+    }).fail(function() {
+      // alert user of API error
+      console.log(marker.title);
+      console.log(location.lat, location.lng);
+      // console.log('Information is currently not available, please try again later.');
+    }); // end ajax request
 
 } //end populateInfoWindow
 

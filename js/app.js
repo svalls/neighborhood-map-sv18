@@ -20,7 +20,7 @@ function mapError() {
 
 
 
-// ********** GOOGLE MAP **********
+/***** GOOGLE MAP *****/
 
 function initMap() {
   // Constructor creates a new map - only center and zoom are required
@@ -45,10 +45,12 @@ function initMap() {
   var Location = function(data) {
       var self = this;
       self.title = data.title;
-      self.location = data.location;
+      // self.location = data.location;
+      self.lat = data.location.lat;
+      self.lng = data.location.lng;
+      self.address = '';
       self.showLocation = ko.observable();
   };
-
 
   var largeInfowindow = new google.maps.InfoWindow();
   var bounds = new google.maps.LatLngBounds();
@@ -95,9 +97,12 @@ function initMap() {
 
 // DISPLAYS INFOWINDOW WHEN MARKER IS CLICKED
 function populateInfoWindow(marker, infowindow) {
+
   // Check to make sure the infowindow is not already opened on this marker.
   if (infowindow.marker != marker) {
     infowindow.marker = marker;
+    //https://discussions.udacity.com/t/location-foursquare-ids-lat-lng-not-returning-proper-location/231915/2
+    //infowindow.setContent(contentString);
     infowindow.setContent('<div>' + marker.title + '</div>');
     infowindow.open(map, marker);
     // Make sure the marker property is cleared if the infowindow is closed.
@@ -106,29 +111,34 @@ function populateInfoWindow(marker, infowindow) {
     });
   } //end if statement
 
-    // ********** FOURSQUARE AJAX REQUEST **********
+    /***** FOURSQUARE AJAX REQUEST *****/
+    var lat = marker.position.lat();
+    var lng = marker.position.lng();
 
     // https://discussions.udacity.com/t/jsonp-on-foursquare-not-working/187829/2
-    //Define the parameters above the ajax request (modularity, readability)
     var foursquareId = '2BLMYYLLXG2GREZT2C0CJ3RBEIXLT0WUHJ3ESGWWHPJYW1DA',
         foursquareSecret = 'QRJ3YCDAS5UVLTDMXADKNMBNJE5NQUFW2YK5XYMWRCE03PAA',
         version = 20160908,
-        foursquareUrl = 'https://api.foursquare.com/v2/venues/search?ll=' + location.lat + ',' + location.lng + '&client_id=' + foursquareId + '&client_secret=' + foursquareSecret + '&v=' + version + '&m=foursquare';
-
+        foursquareUrl = 'https://api.foursquare.com/v2/venues/search?ll=' + lat + ',' + lng + '&client_id=' + foursquareId + '&client_secret=' + foursquareSecret + '&v=' + version + '&m=foursquare';
+  
     // https://discussions.udacity.com/t/wikipedia-api-usage/209707/3
     // https://discussions.udacity.com/t/ajax-foursquare-request-function/203175
     $.ajax({
       url: foursquareUrl,
       dataType: 'json',
     }).done(function(data) {
-      // do something with response
-      console.log(data);
-
+      // get venue info
+      console.log(marker.title, lat, lng);
+      var results = data.response.venues[0];
+      // get venue address
+      self.address = results.location.formattedAddress[0];
+      // display venueInfo on infowindow
+      contentString = '<div>' + '<p>' + marker.title + '</p>' + '</div>' + 
+                      '<div>' + '<p>' + self.address + '</p>' + '</div>';
+      marker.contentString;
     }).fail(function() {
       // alert user of API error
-      console.log(marker.title);
-      console.log(location.lat, location.lng);
-      // console.log('Information is currently not available, please try again later.');
+      // console.log('Information is currently not available.');
     }); // end ajax request
 
 } //end populateInfoWindow
@@ -152,7 +162,7 @@ function makeMarkerIcon(markerColor) {
 
 
 
-// ********** VIEWMODEL **********
+/***** VIEWMODEL *****/
 
 // KO OBSERVABLE ARRAY - tracks which objects are in the array
 function ViewModel(){
@@ -184,5 +194,6 @@ function ViewModel(){
 
 
 ko.applyBindings(new ViewModel()); //end viewmodel
+
 
 

@@ -49,7 +49,8 @@ function initMap() {
       self.lat = data.location.lat;
       self.lng = data.location.lng;
       self.address = '';
-      self.showLocation = ko.observable();
+      self.city = '';
+      // self.showLocation = ko.observable();
   };
 
   var largeInfowindow = new google.maps.InfoWindow();
@@ -97,12 +98,16 @@ function initMap() {
 
 // DISPLAYS INFOWINDOW WHEN MARKER IS CLICKED
 function populateInfoWindow(marker, infowindow) {
+  var contentString;
 
   // Check to make sure the infowindow is not already opened on this marker.
   if (infowindow.marker != marker) {
     infowindow.marker = marker;
-    //https://discussions.udacity.com/t/location-foursquare-ids-lat-lng-not-returning-proper-location/231915/2
-    infowindow.setContent(contentString);
+      // infowindow.setContent(contentString);
+      infowindow.setContent(
+        contentString +
+      '<h2>Headline</h2>'+
+      '<div>'+'<p>more content here + </p>'+'</div>');
     infowindow.open(map, marker);
     // Make sure the marker property is cleared if the infowindow is closed.
     infowindow.addListener('closeclick',function(){
@@ -113,7 +118,6 @@ function populateInfoWindow(marker, infowindow) {
     /***** FOURSQUARE AJAX REQUEST *****/
     var lat = marker.position.lat();
     var lng = marker.position.lng();
-    var contentString;
 
     // https://discussions.udacity.com/t/jsonp-on-foursquare-not-working/187829/2
     var foursquareId = '2BLMYYLLXG2GREZT2C0CJ3RBEIXLT0WUHJ3ESGWWHPJYW1DA',
@@ -130,11 +134,19 @@ function populateInfoWindow(marker, infowindow) {
       // get venue info
       var results = data.response.venues[0];
       // get venue address
-      address = results.location.formattedAddress[0];
-      contentString = marker.title + ', ' + address;
-      console.log(contentString);
+      var venueAddress = results.location.formattedAddress[0];
+      // get venue city, state, zip code
+      var venueCity = results.location.formattedAddress[1];
+      //+ '<br>' +
+      var contentString =
+      '<div>' + marker.title + '</div>' +
+      '<div>' + venueAddress + '</div>' +
+      '<div>' + venueCity + '</div>';
+      var contentStringTest = marker.title + ', ' + venueAddress + ', ' + venueCity;
+      console.log(contentString, contentStringTest);
     }).fail(function() {
       // alert user of API error
+      alert('Information is currently not available.');
       console.log('Information is currently not available.');
     }); // end ajax request
 
@@ -191,4 +203,5 @@ function ViewModel(){
 
 
 ko.applyBindings(new ViewModel()); //end viewmodel
+
 

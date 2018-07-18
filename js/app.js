@@ -102,8 +102,7 @@ function populateInfoWindow(marker, infowindow) {
   if (infowindow.marker != marker) {
     infowindow.marker = marker;
     //https://discussions.udacity.com/t/location-foursquare-ids-lat-lng-not-returning-proper-location/231915/2
-    //infowindow.setContent(contentString);
-    infowindow.setContent('<div>' + marker.title + '</div>');
+    infowindow.setContent(contentString);
     infowindow.open(map, marker);
     // Make sure the marker property is cleared if the infowindow is closed.
     infowindow.addListener('closeclick',function(){
@@ -114,6 +113,7 @@ function populateInfoWindow(marker, infowindow) {
     /***** FOURSQUARE AJAX REQUEST *****/
     var lat = marker.position.lat();
     var lng = marker.position.lng();
+    var contentString;
 
     // https://discussions.udacity.com/t/jsonp-on-foursquare-not-working/187829/2
     var foursquareId = '2BLMYYLLXG2GREZT2C0CJ3RBEIXLT0WUHJ3ESGWWHPJYW1DA',
@@ -128,17 +128,14 @@ function populateInfoWindow(marker, infowindow) {
       dataType: 'json',
     }).done(function(data) {
       // get venue info
-      console.log(marker.title, lat, lng);
       var results = data.response.venues[0];
       // get venue address
-      self.address = results.location.formattedAddress[0];
-      // display venueInfo on infowindow
-      contentString = '<div>' + '<p>' + marker.title + '</p>' + '</div>' + 
-                      '<div>' + '<p>' + self.address + '</p>' + '</div>';
-      marker.contentString;
+      address = results.location.formattedAddress[0];
+      contentString = marker.title + ', ' + address;
+      console.log(contentString);
     }).fail(function() {
       // alert user of API error
-      // console.log('Information is currently not available.');
+      console.log('Information is currently not available.');
     }); // end ajax request
 
 } //end populateInfoWindow
@@ -194,6 +191,4 @@ function ViewModel(){
 
 
 ko.applyBindings(new ViewModel()); //end viewmodel
-
-
 

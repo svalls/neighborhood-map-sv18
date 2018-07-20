@@ -15,10 +15,10 @@ Foursquare API (get data for each location).
 4. The app is fully responsive so it will work on any device
 
 ## References
-Google Maps API: https://cloud.google.com/maps-platform
-jQuery: https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js 
-knockout framework: http://knockoutjs.com
-Foursquare API: https://developer.foursquare.com
+- Google Maps API: https://cloud.google.com/maps-platform/
+- jQuery: https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js 
+- Knockout framework: http://knockoutjs.com
+- Foursquare API: https://developer.foursquare.com
 
 additional references
 https://www.w3schools.com/

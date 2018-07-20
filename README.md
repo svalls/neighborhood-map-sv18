@@ -21,8 +21,8 @@ Foursquare API (get data for each location).
 - Foursquare API: https://developer.foursquare.com
 
 additional references
-https://www.w3schools.com/
-https://stackoverflow.com/questions/13237058/get-index-of-the-clicked-element-in-knockout
-https://discussions.udacity.com/t/wikipedia-api-usage/209707/3
-https://discussions.udacity.com/t/ajax-foursquare-request-function/203175
-https://stackoverflow.com/questions/2730929/how-to-trigger-the-onclick-event-of-a-marker-on-a-google-maps-v3/2731781#2731781
+- https://www.w3schools.com/
+- https://stackoverflow.com/questions/13237058/get-index-of-the-clicked-element-in-knockout
+- https://discussions.udacity.com/t/wikipedia-api-usage/209707/3
+- https://discussions.udacity.com/t/ajax-foursquare-request-function/203175
+- https://stackoverflow.com/questions/2730929/how-to-trigger-the-onclick-event-of-a-marker-on-a-google-maps-v3/2731781#2731781

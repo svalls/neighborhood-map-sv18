@@ -91,7 +91,8 @@ nav, main {
   padding: 0px 15px 0px 15px;
   /*padding-left: 15px;*/
   list-style-type:none;
-  line-height: 40px;
+  font-size: 14px;
+  line-height: 30px;
 }
 
 
@@ -103,20 +104,8 @@ nav, main {
 
 #sidebar li:focus {
   background-color: yellow;
- color: yellow;
+  color: yellow;
 }
-
-
-/*#sidebar a {
-  color: #5e5e5e;
-  text-decoration: none;
-  line-height: 40px;
-}*/
-
-
-/*#sidebar a:focus {
- color:#cc66ff;
-}*/
 
 
 #map {
@@ -147,5 +136,9 @@ nav, main {
 
 
 } /*end media*/
+
+
+
+
 
 

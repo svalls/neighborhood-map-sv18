@@ -2,7 +2,6 @@ var map;
 // Create a new blank array for all the listing markers
 var markers = [];
 
-
 //OPEN SIDE MENU
 function openSidebar() {
 document.getElementById("sidebar").classList.toggle("open");
@@ -17,6 +16,7 @@ console.log("close sidebar");
 function mapError() {
   alert("Map could not be loaded at this moment. Please try again");
 }
+
 
 
 
@@ -36,10 +36,16 @@ function initMap() {
   var locations = [
     {title: 'Santa Barbara Zoo', location: {lat: 34.420408, lng: -119.666354}},
     {title: 'Stearns Wharf', location: {lat: 34.4100065, lng: -119.6855487}},
-    {title: 'Paseo Nuevo Shops', location: {lat: 34.4206196, lng: -119.6957234}},
+    {title: 'Paseo Nuevo', location: {lat: 34.419035, lng: -119.699953}},
     {title: 'Brophy Bros. Seafood Restaurant', location: {lat: 34.4039826, lng: -119.6933294}},
-    {title: 'Los Agaves Mexican Restaurant', location: {lat: 34.4374508, lng: -119.7273891}}
+    {title: 'Los Agaves Mexican Restaurant', location: {lat: 34.4374508, lng: -119.7273891}},
+    {title: 'Figueroa Mountain Brewing Co.', location: {lat: 34.4146164, lng: -119.6908184}},
+    {title: 'Santa Barbara Museum Of Natural History', location: {lat: 34.4409134, lng: -119.7144601}},
+    {title: 'McConnells Fine Ice Creams', location: {lat: 34.4194911, lng: -119.6987739}},
+    {title: 'MOXI, The Wolf Museum of Exploration + Innovation', location: {lat: 34.413437, lng: -119.691698}},
+    {title: 'Helena Avenue Bakery', location: {lat: 34.4144445, lng: -119.6906718}}
   ];
+
 
   // LOCATION CONSTRUCTOR
   var Location = function(data) {
@@ -52,6 +58,7 @@ function initMap() {
       self.city = '';
       // self.showLocation = ko.observable();
   };
+
 
   var largeInfowindow = new google.maps.InfoWindow();
   var bounds = new google.maps.LatLngBounds();
@@ -95,7 +102,6 @@ function initMap() {
 } //end initmap function
 
 
-
 // DISPLAYS INFOWINDOW WHEN MARKER IS CLICKED
 function populateInfoWindow(marker, infowindow) {
   var contentString;
@@ -103,11 +109,6 @@ function populateInfoWindow(marker, infowindow) {
   // Check to make sure the infowindow is not already opened on this marker.
   if (infowindow.marker != marker) {
     infowindow.marker = marker;
-      // infowindow.setContent(contentString);
-      infowindow.setContent(
-        contentString +
-      '<h2>Headline</h2>'+
-      '<div>'+'<p>more content here + </p>'+'</div>');
     infowindow.open(map, marker);
     // Make sure the marker property is cleared if the infowindow is closed.
     infowindow.addListener('closeclick',function(){
@@ -115,40 +116,41 @@ function populateInfoWindow(marker, infowindow) {
     });
   } //end if statement
 
-    /***** FOURSQUARE AJAX REQUEST *****/
-    var lat = marker.position.lat();
-    var lng = marker.position.lng();
 
-    // https://discussions.udacity.com/t/jsonp-on-foursquare-not-working/187829/2
-    var foursquareId = '2BLMYYLLXG2GREZT2C0CJ3RBEIXLT0WUHJ3ESGWWHPJYW1DA',
-        foursquareSecret = 'QRJ3YCDAS5UVLTDMXADKNMBNJE5NQUFW2YK5XYMWRCE03PAA',
-        version = 20160908,
-        foursquareUrl = 'https://api.foursquare.com/v2/venues/search?ll=' + lat + ',' + lng + '&client_id=' + foursquareId + '&client_secret=' + foursquareSecret + '&v=' + version + '&m=foursquare';
-  
-    // https://discussions.udacity.com/t/wikipedia-api-usage/209707/3
-    // https://discussions.udacity.com/t/ajax-foursquare-request-function/203175
-    $.ajax({
-      url: foursquareUrl,
-      dataType: 'json',
-    }).done(function(data) {
-      // get venue info
-      var results = data.response.venues[0];
-      // get venue address
-      var venueAddress = results.location.formattedAddress[0];
-      // get venue city, state, zip code
-      var venueCity = results.location.formattedAddress[1];
-      //+ '<br>' +
-      var contentString =
-      '<div>' + marker.title + '</div>' +
-      '<div>' + venueAddress + '</div>' +
-      '<div>' + venueCity + '</div>';
-      var contentStringTest = marker.title + ', ' + venueAddress + ', ' + venueCity;
-      console.log(contentString, contentStringTest);
-    }).fail(function() {
-      // alert user of API error
-      alert('Information is currently not available.');
-      console.log('Information is currently not available.');
-    }); // end ajax request
+  /***** FOURSQUARE AJAX REQUEST *****/
+  var lat = marker.position.lat();
+  var lng = marker.position.lng();
+
+  // https://discussions.udacity.com/t/jsonp-on-foursquare-not-working/187829/2
+  var foursquareId = '2BLMYYLLXG2GREZT2C0CJ3RBEIXLT0WUHJ3ESGWWHPJYW1DA',
+      foursquareSecret = 'QRJ3YCDAS5UVLTDMXADKNMBNJE5NQUFW2YK5XYMWRCE03PAA',
+      version = 20160908,
+      foursquareUrl = 'https://api.foursquare.com/v2/venues/search?ll=' + lat + ',' + lng + '&client_id=' + foursquareId + '&client_secret=' + foursquareSecret + '&v=' + version + '&m=foursquare';
+
+  // https://discussions.udacity.com/t/wikipedia-api-usage/209707/3
+  // https://discussions.udacity.com/t/ajax-foursquare-request-function/203175
+  $.ajax({
+    url: foursquareUrl,
+    dataType: 'json',
+  }).done(function(data) {
+    // get venue info
+    var results = data.response.venues[0];
+    // get venue address
+    var venueAddress = results.location.formattedAddress[0];
+    // get venue city, state, zip code
+    var venueCity = results.location.formattedAddress[1];
+    //+ '<br>' +
+    var contentString =
+    '<div>' + '<h3>' + marker.title + '</h3>' + '</div>' +
+    '<div>' + venueAddress + '</div>' +
+    '<div>' + venueCity + '</div>';
+    infowindow.setContent(contentString);
+    console.log(contentString);
+  }).fail(function() {
+    // alert user of API error
+    '<div>' + 'Information is currently not available.' + '</div>'
+    console.log('Information is currently not available.');
+  }); // end ajax request
 
 } //end populateInfoWindow
 
@@ -171,6 +173,7 @@ function makeMarkerIcon(markerColor) {
 
 
 
+
 /***** VIEWMODEL *****/
 
 // KO OBSERVABLE ARRAY - tracks which objects are in the array
@@ -181,11 +184,17 @@ function ViewModel(){
   self.filter = ko.observable();
 
   self.locations = ko.observableArray([
-    { name: 'Santa Barbara Zoo' },
-    { name: 'Stearns Wharf' },
-    { name: 'Paseo Nuevo Shops' },
-    { name: 'Brophy Bros. Seafood Restaurant' },
-    { name: 'Los Agaves Mexican Restaurant' }]);  
+    { name: '1. Santa Barbara Zoo' },
+    { name: '2. Stearns Wharf' },
+    { name: '3. Paseo Nuevo' },
+    { name: '4. Brophy Bros. Seafood Restaurant' },
+    { name: '5. Los Agaves Mexican Restaurant' },
+    { name: '6. Figueroa Mountain Brewing Co.' },
+    { name: '7. Santa Barbara Museum Of Natural History' },
+    { name: '8. McConnells Fine Ice Creams' },
+    { name: '9. MOXI, The Wolf Museum of Exploration + Innovation' },
+    { name: '10. Helena Avenue Bakery' }]);
+    //  
     
   self.visibleLocations = ko.computed(function(){
     return self.locations().filter(function(location){

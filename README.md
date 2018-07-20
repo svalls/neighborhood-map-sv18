@@ -19,8 +19,6 @@ Foursquare API (get data for each location).
 - jQuery: https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js 
 - Knockout framework: http://knockoutjs.com
 - Foursquare API: https://developer.foursquare.com
-
-additional references
 - https://www.w3schools.com/
 - https://stackoverflow.com/questions/13237058/get-index-of-the-clicked-element-in-knockout
 - https://discussions.udacity.com/t/wikipedia-api-usage/209707/3
